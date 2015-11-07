@@ -40,7 +40,7 @@ const reqMagic = 0xA0
 // Version 2.4 (byte)
 const reqVersion = 24
 
-// Opcode (1byte)
+// Opcode (byte)
 const (
 	reqOpPut                 = 0x01
 	reqOpGet                 = 0x03
@@ -65,7 +65,7 @@ const (
 // Flags (vInt)
 
 // Client Intelligence (byte)
-// Basic client, not interested in cluster or hash info.
+// Basic client, not interested in cluster or hash info in initial versions.
 const reqClientIntel = 0x01
 
 // Topology ID (vInt)
@@ -78,3 +78,48 @@ const reqTransationType = 0
 
 // Transaction ID (byte array)
 // This is omitted when transactions are not supported.
+
+/***********************************************************
+ * Response Header
+ * A request header consists of one of each of the following.
+ ***********************************************************/
+
+// Magic (byte)
+const respMagic = 0xA1
+
+// Message ID (vLong)
+
+// Opcode (byte)
+const (
+	respOpPut                 = 0x02
+	respOpGet                 = 0x04
+	respOpPutIfAbsent         = 0x06
+	respOpReplace             = 0x08
+	respOpReplaceIfUnmodified = 0x0A
+	respOpRemove              = 0x0C
+	respOpRemoveIfUnmodified  = 0x0E
+	respOpContainsKey         = 0x10
+	respOpGetWithVersion      = 0x12
+	respOpClear               = 0x14
+	respOpStats               = 0x16
+	respOpPing                = 0x18
+	respOpBulkGet             = 0x1A
+	respOpPutAll              = 0x2E
+	respOpGetAll              = 0x30
+	respOpError               = 0x50
+)
+
+// Status (byte)
+const (
+	respStatusNoError               = 0x00
+	respStatusNotPutRemovedReplaced = 0x01
+	respStatusKeyDoesNotExist       = 0x02
+	respStatusInvalidMagicOrMsgID   = 0x81
+	respStatusUnknownCommand        = 0x82
+	respStatusUnknownVersion        = 0x83
+	respStatusReqParseError         = 0x84
+	respStatusServerError           = 0x85
+	respStatusTimeout               = 0x86
+)
+
+// Topology Change Marker (string)
